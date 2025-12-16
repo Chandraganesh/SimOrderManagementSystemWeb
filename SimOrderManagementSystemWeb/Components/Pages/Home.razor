@@ -1,7 +1,23 @@
 ﻿@page "/"
-
+@inject NavigationManager Navigation
 <PageTitle>Home</PageTitle>
 
-<h1>Hello, world!</h1>
+<div class="home-container">
+    <NavLink class="btn btn-primary btn-lg" href="/simtype">
+        Order a SIM
+    </NavLink>
 
-Welcome to your new app.
+    <NavLink class="btn btn-secondary btn-lg" href="/orderstatus">
+        Check Order Status
+    </NavLink>
+</div>
+
+<style>
+    .home-container {
+        height: 70vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+    }
+</style>
