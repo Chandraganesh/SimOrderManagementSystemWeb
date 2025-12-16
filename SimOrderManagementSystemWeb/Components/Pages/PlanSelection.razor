@@ -1,0 +1,164 @@
+﻿@page "/planselection"
+@inject NavigationManager NavManager
+
+
+<h3 class="page-title">Select SIM & Plan</h3>
+
+<div class="selection-container">
+    <!-- SIM SECTION -->
+    <div id="sim" class="box">
+        <label class="box-header">
+            <input type="checkbox" />
+            <span>SIM</span>
+        </label>
+
+        <div class="box-content">
+            <p class="item-name">SIM Card</p>
+            <p class="price">₹199</p>
+        </div>
+    </div>
+
+    @if (Option == 1)
+    {
+        <!-- PLAN SECTION -->
+        <div id="basic_plan" class="box">
+            <label class="box-header">
+                <input type="checkbox" />
+                <span>Plan</span>
+            </label>
+
+            <div class="box-content">
+                <p class="item-name">Basic Plan</p>
+                <p class="price">₹299 / month</p>
+
+                <ul class="benefits">
+                    <li>2 GB / day data</li>
+                    <li>Unlimited voice</li>
+                    <li>100 SMS / day</li>
+                </ul>
+            </div>
+        </div>
+    }
+
+    @if (Option == 2)
+    {
+        <!-- CUSTOM PLAN SECTION -->
+        <div id="custom_plan" class="box">
+            <label class="box-header">
+                <input type="checkbox" />
+                <span>Custom Plan</span>
+            </label>
+
+            <div class="box-content">
+                <p class="item-name">Build Your Plan</p>
+
+                <div class="slider-group">
+                    <label>Data (GB / day): <strong>@DataGb</strong></label>
+                    <input type="range" min="1" max="5" step="1" @bind="DataGb" />
+                </div>
+
+                <div class="slider-group">
+                    <label>Voice (minutes / day): <strong>@VoiceMinutes</strong></label>
+                    <input type="range" min="100" max="1000" step="100" @bind="VoiceMinutes" />
+                </div>
+
+                <div class="slider-group">
+                    <label>SMS (per day): <strong>@SmsCount</strong></label>
+                    <input type="range" min="50" max="500" step="50" @bind="SmsCount" />
+                </div>
+
+                <p class="price">₹@TotalPrice / month</p>
+            </div>
+        </div>
+    }
+</div>
+
+<style>
+    .page-title {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .selection-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        margin-top: 30px;
+    }
+
+    .box {
+        width: 100%;
+        max-width: 360px;
+        border: 1px solid #ccc;
+        border-radius: 12px;
+        padding: 16px;
+        background-color: #fafafa;
+    }
+
+    .box-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    .box-content {
+        margin-top: 12px;
+        text-align: center;
+    }
+
+    .item-name {
+        font-size: 16px;
+        margin-bottom: 6px;
+    }
+
+    .price {
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .benefits {
+        list-style: none;
+        padding: 0;
+        font-size: 14px;
+    }
+
+    .benefits li {
+        margin-bottom: 4px;
+    }
+
+    .slider-group {
+        margin-top: 12px;
+        text-align: left;
+    }
+
+    .slider-group label {
+        display: block;
+        margin-bottom: 4px;
+    }
+</style>
+
+@code {
+    int? Option;
+    protected override void OnInitialized()
+    {
+        var uri = NavManager.ToAbsoluteUri(NavManager.Uri);
+        if (Microsoft.AspNetCore.WebUtilities.QueryHelpers.ParseQuery(uri.Query).TryGetValue("option", out var value))
+        {
+            if (int.TryParse(value, out var result))
+            {
+                Option = result;
+            }
+        }
+    }
+
+    int DataGb = 2;
+    int VoiceMinutes = 300;
+    int SmsCount = 100;
+
+    int TotalPrice =>
+    199 + (DataGb * 50) + (VoiceMinutes / 100 * 30) + (SmsCount / 50 * 20);
+}

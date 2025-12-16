@@ -5,15 +5,13 @@
         <NavMenu />
     </div> *@
 
-    <main>
-        @* <div class="top-row px-4">
-            <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
-        </div> *@
-
+    <main class="main-container">
         <article class="content px-4">
             @Body
         </article>
+        <div class="footer">Developed by Chandraganesh</div>
     </main>
+
 </div>
 
 <div id="blazor-error-ui" data-nosnippet>
@@ -21,3 +19,21 @@
     <a href="." class="reload">Reload</a>
     <span class="dismiss">🗙</span>
 </div>
+
+<style>
+    .main-container {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .content {
+        flex: 1;
+    }
+
+    .footer {
+        text-align: center;
+        padding: 12px;
+        border-top: 1px solid #ddd;
+    }
+</style>
