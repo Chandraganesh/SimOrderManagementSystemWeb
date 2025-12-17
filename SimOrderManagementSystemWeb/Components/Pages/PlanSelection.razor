@@ -8,7 +8,6 @@
     <!-- SIM SECTION -->
     <div id="sim" class="box">
         <label class="box-header">
-            <input type="checkbox" />
             <span>SIM</span>
         </label>
 
@@ -23,7 +22,6 @@
         <!-- PLAN SECTION -->
         <div id="basic_plan" class="box">
             <label class="box-header">
-                <input type="checkbox" />
                 <span>Plan</span>
             </label>
 
@@ -45,7 +43,6 @@
         <!-- CUSTOM PLAN SECTION -->
         <div id="custom_plan" class="box">
             <label class="box-header">
-                <input type="checkbox" />
                 <span>Custom Plan</span>
             </label>
 
@@ -71,6 +68,11 @@
             </div>
         </div>
     }
+
+
+</div>
+<div class="footer-button">
+    <button class="btn btn-warning btn-lg w-100" @onclick="GoToCustomerDetailsPage">Continue</button>
 </div>
 
 <style>
@@ -139,6 +141,17 @@
         display: block;
         margin-bottom: 4px;
     }
+
+    .footer-button {
+        position: sticky;
+        bottom: 0;
+        width: 100%;
+        max-width: 360px;
+        margin: 0 auto;
+        padding: 12px;
+        background: white;
+        border-top: 1px solid #ddd;
+    }
 </style>
 
 @code {
@@ -161,4 +174,9 @@
 
     int TotalPrice =>
     199 + (DataGb * 50) + (VoiceMinutes / 100 * 30) + (SmsCount / 50 * 20);
+
+    void GoToCustomerDetailsPage()
+    {
+        NavManager.NavigateTo("/customerdetails");
+    }
 }
